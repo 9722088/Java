@@ -1,0 +1,59 @@
+public class Main {
+	public static void main(String[] args) {
+		java.util.Scanner in = new java.util.Scanner(System.in);
+		Clock clock = new Clock(in.nextInt(), in.nextInt(), in.nextInt());
+		clock.tick();
+		System.out.println(clock);
+		in.close();
+	}
+}
+class Display {
+	private int value = 0;
+	private int limit = 0;
+	
+	public Display(int limit) {
+		this.limit = limit;
+	}
+	
+	public void increase() {
+		value++;
+		if(value == limit) {
+			value = 0;
+		}
+	}
+	
+	public void setvalue(int x) {
+		value = x;
+	}
+	
+	public int getvalue() {
+		return value;
+	}
+}
+
+class Clock {
+	private Display hour = new Display(24);
+	private Display minute = new Display(60);
+	private Display second = new Display(60);
+	
+	public Clock(int hour, int minute, int second) {
+		this.hour.setvalue(hour);
+		this.minute.setvalue(minute);
+		this.second.setvalue(second);
+	}
+	
+	public void tick() {
+		second.increase();
+		if(second.getvalue() == 0) {
+			minute.increase();
+			if(minute.getvalue() == 0) {
+				hour.increase();
+			}
+		}
+	}
+	
+	public String toString() {
+		 String Str = String.format("%02d:%02d:%02d", hour.getvalue(), minute.getvalue(), second.getvalue());  
+	     return Str;  
+	}
+}
