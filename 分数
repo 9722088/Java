@@ -1,0 +1,70 @@
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
+		Fraction a = new Fraction(in.nextInt(), in.nextInt());
+		Fraction b = new Fraction(in.nextInt(),in.nextInt());
+		a.print();
+		b.print();
+		a.plus(b).print();
+		a.multiply(b).plus(new Fraction(5,6)).print();
+		a.print();
+		b.print();
+		in.close();
+	}
+
+}
+
+class Fraction {
+	private int fenzi = 0;
+	private int fenmu = 0;
+	
+	public Fraction(int a,int b) {
+		fenzi = a;
+		fenmu = b;
+	}
+	
+	public double toDouble() {
+		return ((double)fenzi/fenmu);
+	}
+	
+	public Fraction plus(Fraction r) {
+		Fraction x = new Fraction(0,0);
+		x.fenzi = r.fenzi;
+		x.fenmu = r.fenmu;
+		x.fenzi = (this.fenzi * r.fenmu) + (this.fenmu * r.fenzi);
+		x.fenmu = this.fenmu * r.fenmu;
+		return x;
+	}
+	
+	public Fraction multiply(Fraction r) {
+		Fraction x = new Fraction(0,0);
+		x.fenzi = r.fenzi;
+		x.fenmu = r.fenmu;
+		x.fenzi = this.fenzi * r.fenzi;
+		x.fenmu = this.fenmu * r.fenmu;
+		return x;
+	}
+	
+	public void print() {
+		int i;
+		if( fenzi == fenmu) {
+			System.out.println(1);
+		}else{
+			if(fenzi>fenmu) {
+				i = fenmu;
+			}else {
+				i = fenzi;
+			}
+				for( ; i>0; i--){
+					if(fenzi%i==0 && fenmu%i==0) {
+						fenzi /= i;
+						fenmu /= i;
+					}
+				}
+			System.out.println(fenzi+"/"+fenmu);
+		}	
+	}
+}
